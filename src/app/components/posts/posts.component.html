@@ -1,0 +1,17 @@
+<app-search (searchValue)="onSearch($event)"></app-search>
+<ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">Active</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
+    </li>
+</ul>
+<br/>
+<div class="card w-75 border-0" *ngFor="let post of posts">
+  <div class="card-body">
+    <h5 class="card-title">{{ post.header }}</h5>
+    <a href="{{ post.link }}" class="card-link">{{ post.link }}</a>
+    <p class="card-text">{{ post.content }}</p>
+  </div>
+</div>
