@@ -1,17 +1,41 @@
-<app-search (searchValue)="onSearch($event)"></app-search>
+<app-search (textValue)="setSearchWord($event)" (searchValue)="onSearchWord()"></app-search>
 <ul class="nav nav-pills">
-    <li class="nav-item">
-      <a class="nav-link active" href="#">Active</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Link</a>
+    <li class="nav-item" *ngFor="let tab of tabs" (click)="selectTab(tab)">
+      <a class="nav-link" [class.active]="tab.active" href="#">{{tab.name}}</a>
     </li>
 </ul>
 <br/>
-<div class="card w-75 border-0" *ngFor="let post of posts">
-  <div class="card-body">
-    <h5 class="card-title">{{ post.header }}</h5>
-    <a href="{{ post.link }}" class="card-link">{{ post.link }}</a>
-    <p class="card-text">{{ post.content }}</p>
+<div *ngIf="activeTab.name == 'Blogs'">
+  <div class="card w-75 border-0" *ngFor="let post of posts">
+    <div class="card-body">
+      <h5 class="card-title">{{ post.header }}</h5>
+      <a href="{{ post.link }}" class="card-link">{{ post.link }}</a>
+      <p class="card-text">{{ post.content }}</p>
+    </div>
   </div>
+</div>
+
+<div *ngIf="activeTab.name == 'Images'">
+ <!-- <img *ngFor="let image of images" src="{{image.src}}" class="img-fluid" alt="Responsive image"> -->
+ <section class="gallery-block cards-gallery">
+  <div class="container">
+       <div class="row">
+          <div class="col-md-6 col-lg-4" *ngFor="let image of images">
+              <div class="card border-0 transform-on-hover">
+                <a class="lightbox" href="{{image.postLink}}">
+                  <img src="{{image.src}}" alt="{{image.alt}}" class="card-img-top">
+                </a>
+                  <div class="card-body">
+                      <h6><a href="#">{{image.alt}}</a></h6>
+                     <!-- <p class="text-muted card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.</p> -->
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+<script>
+    baguetteBox.run('.cards-gallery', { animation: 'slideIn'});
+</script>
 </div>
